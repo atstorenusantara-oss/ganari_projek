@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <SPI.h>
 #include <TFT_22_ILI9225.h>
 #include <WiFi.h>

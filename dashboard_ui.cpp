@@ -4,7 +4,7 @@ void drawDashboardHeader(TFT_22_ILI9225& tft) {
   tft.setFont(Terminal12x16);
   tft.drawText(15, 8, "GANARI AIR QUALITY", COLOR_CYAN);
   tft.setFont(Terminal6x8);
-  tft.drawText(120, 25, "Copyright jonas", COLOR_LIGHTCYAN);
+  tft.drawText(80, 25, "powered by: insalusi", COLOR_LIGHTCYAN);
   tft.drawRectangle(5, 35, 215, 37, COLOR_GRAY);
 }
 
@@ -43,21 +43,21 @@ void drawSensorValues(TFT_22_ILI9225& tft, int co2, float o2, int pm25, float te
   const int labelX = 15;
   const int valueX = 100;
 
-  tft.drawText(labelX, y, "CO2", COLOR_WHITE);
-  tft.drawText(valueX, y, String(co2) + " ppm", COLOR_WHITE);
+  tft.drawText(labelX, y, "CO2", COLOR_YELLOW);
+  tft.drawText(valueX, y, String(co2) + " ppm", COLOR_YELLOW);
   tft.drawLine(5, y + 20, 210, y + 20, COLOR_DARKGREY);
   y += 25;
 
-  tft.drawText(labelX, y, "O2", COLOR_WHITE);
-  tft.drawText(valueX, y, String(o2, 1) + " %", COLOR_WHITE);
+  tft.drawText(labelX, y, "O2", COLOR_GOLD);
+  tft.drawText(valueX, y, String(o2, 1) + " %", COLOR_GOLD);
   tft.drawLine(5, y + 20, 210, y + 20, COLOR_DARKGREY);
   y += 25;
 
-  tft.drawText(labelX, y, "PM2.5", COLOR_WHITE);
-  tft.drawText(valueX, y, String(pm25) + " ug/m3", COLOR_WHITE);
+  tft.drawText(labelX, y, "PM2.5", COLOR_GREENYELLOW);
+  tft.drawText(valueX, y, String(pm25) + " ug/m3", COLOR_GREENYELLOW);
   tft.drawLine(5, y + 20, 210, y + 20, COLOR_DARKGREY);
   y += 25;
 
-  tft.drawText(labelX, y, "Temp", COLOR_WHITE);
-  tft.drawText(valueX, y, String(temp, 1) + " C", COLOR_WHITE);
+  tft.drawText(labelX, y, "Temp", COLOR_AZUR);
+  tft.drawText(valueX, y, String(temp, 1) + " C", COLOR_AZUR);
 }
