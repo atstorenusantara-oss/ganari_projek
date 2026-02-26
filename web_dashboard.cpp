@@ -88,6 +88,12 @@ void sendDashboardHtml(WebServer& server, const SensorData& sensorData) {
       <div class="unit">C</div>
     </div>
 
+    <div class="card">
+      <div class="label">VOC</div>
+      <div class="value">)=====" + String(sensorData.VOC, 1) + R"=====(</div>
+      <div class="unit">C</div>
+    </div>
+
     <hr>
     <footer>Update setiap ~3 detik | ESP32 - TFT ILI9225</footer>
   </div>

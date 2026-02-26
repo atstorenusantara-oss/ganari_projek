@@ -6,6 +6,7 @@ struct SensorData {
   float o2;
   int pm25;
   float temp;
+  float VOC;
 };
 
 void updateSensorDataRandom(SensorData& data);

@@ -35,7 +35,7 @@ void showWifiConnectedScreen(TFT_22_ILI9225& tft, const IPAddress& ip) {
   tft.drawText(10, 100, "Dashboard starts in 5s...", COLOR_YELLOW);
 }
 
-void drawSensorValues(TFT_22_ILI9225& tft, int co2, float o2, int pm25, float temp) {
+void drawSensorValues(TFT_22_ILI9225& tft, int co2, float o2, int pm25, float temp, float VOC) {
   tft.fillRectangle(0, 45, 219, 175, COLOR_BLACK);
   tft.setFont(Terminal12x16);
 
@@ -60,4 +60,11 @@ void drawSensorValues(TFT_22_ILI9225& tft, int co2, float o2, int pm25, float te
 
   tft.drawText(labelX, y, "Temp", COLOR_AZUR);
   tft.drawText(valueX, y, String(temp, 1) + " C", COLOR_AZUR);
+  tft.drawLine(5, y + 20, 210, y + 20, COLOR_DARKGREY);
+
+ y += 25;
+  tft.drawText(labelX, y, "VOC", COLOR_AZUR);
+  tft.drawText(valueX, y, String(VOC, 1) + " -", COLOR_AZUR);
+  tft.drawLine(5, y + 20, 210, y + 20, COLOR_DARKGREY);
+
 }

@@ -230,6 +230,6 @@ void loop() {
   lastUpdateMs = millis();
 
   updateSensorDataRandom(sensorData);
-  drawSensorValues(tft, sensorData.co2, sensorData.o2, sensorData.pm25, sensorData.temp);
+  drawSensorValues(tft, sensorData.co2, sensorData.o2, sensorData.pm25, sensorData.temp, sensorData.VOC);
   Serial.println("UALUBUN --- "+ String(beta++ * 100));
 }
