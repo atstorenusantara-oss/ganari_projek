@@ -3,12 +3,13 @@
 
 struct SensorData {
   int co2;
-  float o2;
+  int voc;
+  float humidity;
   int pm25;
   float temp;
-  float VOC;
 };
 
-void updateSensorDataRandom(SensorData& data);
+void initSensorReader();
+bool updateSensorDataFromSensor(SensorData& data);
 
 #endif

@@ -104,9 +104,15 @@ void sendDashboardHtml(WebServer& server, const SensorData& sensorData) {
     </div>
 
     <div class="card">
-      <div class="label">O2</div>
-      <div class="value">)=====" + String(sensorData.o2, 1) + R"=====(</div>
-      <div class="unit">%</div>
+      <div class="label">VOC / CH2O</div>
+      <div class="value">)=====" + String(sensorData.voc) + R"=====(</div>
+      <div class="unit">index</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Humidity</div>
+      <div class="value">)=====" + String(sensorData.humidity, 1) + R"=====(</div>
+      <div class="unit">%RH</div>
     </div>
 
     <div class="card">
@@ -119,12 +125,6 @@ void sendDashboardHtml(WebServer& server, const SensorData& sensorData) {
       <div class="label">Temperature</div>
       <div class="value">)=====" + String(sensorData.temp, 1) + R"=====(</div>
       <div class="unit">C</div>
-    </div>
-
-    <div class="card">
-      <div class="label">VOC</div>
-      <div class="value">)=====" + String(sensorData.VOC, 1) + R"=====(</div>
-      <div class="unit">-</div>
     </div>
 
     <a class="btn-link" href="/wifi">WiFi Settings</a>

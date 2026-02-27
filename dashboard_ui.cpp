@@ -47,35 +47,37 @@ void showWifiCheckModeScreen(TFT_22_ILI9225& tft, const String& ssid, const Stri
   tft.drawText(10, 140, "Power cycle normal to exit", COLOR_WHITE);
 }
 
-void drawSensorValues(TFT_22_ILI9225& tft, int co2, float o2, int pm25, float temp, bool wifiOff, const String& wifiIp) {
+void drawSensorValues(
+  TFT_22_ILI9225& tft,
+  int co2,
+  float humidity,
+  int pm25,
+  float temp,
+  bool wifiOff,
+  const String& wifiIp
+) {
   tft.fillRectangle(0, 45, 219, 175, COLOR_BLACK);
   tft.setFont(Terminal12x16);
 
-  int y = 50;
-  const int labelX = 15;
-  const int valueX = 100;
+  const int leftX = 10;
+  int y = 48;
 
-  tft.drawText(labelX, y, "CO2", COLOR_YELLOW);
-  tft.drawText(valueX, y, String(co2) + " ppm", COLOR_YELLOW);
-  tft.drawLine(5, y + 20, 210, y + 20, COLOR_DARKGREY);
-  y += 25;
+  tft.drawText(leftX, y, "CO2  : " + String(co2) + " ppm", COLOR_YELLOW);
+  y += 28;
+  tft.drawLine(8, y - 6, 212, y - 6, COLOR_DARKGREY);
 
-  tft.drawText(labelX, y, "O2", COLOR_GOLD);
-  tft.drawText(valueX, y, String(o2, 1) + " %", COLOR_GOLD);
-  tft.drawLine(5, y + 20, 210, y + 20, COLOR_DARKGREY);
-  y += 25;
+  tft.drawText(leftX, y, "Humidity: " + String(humidity, 1) + " %RH", COLOR_GOLD);
+  y += 28;
+  tft.drawLine(8, y - 6, 212, y - 6, COLOR_DARKGREY);
 
-  tft.drawText(labelX, y, "PM2.5", COLOR_GREENYELLOW);
-  tft.drawText(valueX, y, String(pm25) + " ug/m3", COLOR_GREENYELLOW);
-  tft.drawLine(5, y + 20, 210, y + 20, COLOR_DARKGREY);
-  y += 25;
+  tft.drawText(leftX, y, "PM2.5: " + String(pm25) + " ug/m3", COLOR_GREENYELLOW);
+  y += 28;
+  tft.drawLine(8, y - 6, 212, y - 6, COLOR_DARKGREY);
 
-  tft.drawText(labelX, y, "Temp", COLOR_AZUR);
-  tft.drawText(valueX, y, String(temp, 1) + " C", COLOR_AZUR);
-  tft.drawLine(5, y + 20, 210, y + 20, COLOR_DARKGREY);
+  tft.drawText(leftX, y, "TEMP : " + String(temp, 1) + " C", COLOR_AZUR);
 
   tft.setFont(Terminal6x8);
-  tft.drawText(labelX, 170, wifiOff ? "WiFi: OFF" : "WiFi: ON", wifiOff ? COLOR_RED : COLOR_GREEN);
-  tft.drawText(110, 170, "IP: " + (wifiOff ? String("-") : wifiIp), COLOR_LIGHTCYAN);
+  tft.drawText(10, 170, wifiOff ? "WiFi: OFF" : "WiFi: ON", wifiOff ? COLOR_RED : COLOR_GREEN);
+  tft.drawText(90, 170, "IP: " + (wifiOff ? String("-") : wifiIp), COLOR_LIGHTCYAN);
 
 }

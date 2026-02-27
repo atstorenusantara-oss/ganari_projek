@@ -19,12 +19,10 @@ const char* defaultPassword = "12345678";
 #define TFT_RS   2
 #define TFT_LED  255
 
-int beta = 0;
-
 TFT_22_ILI9225 tft = TFT_22_ILI9225(TFT_RST, TFT_RS, TFT_CS, TFT_LED);
 WebServer server(80);
 
-SensorData sensorData = {450, 20.8, 12, 27.5};
+SensorData sensorData = {450, 100, 55.0, 12, 27.5};
 String wifiSsid;
 String wifiPassword;
 const char* otaHttpUser = "admin";
@@ -274,9 +272,10 @@ void setup() {
   bootStartMs = millis();
 
   tft.begin();
-  tft.setOrientation(1);
+  tft.setOrientation(3);
   tft.clear();
   drawDashboardHeader(tft);
+  initSensorReader();
 
   WiFi.mode(WIFI_STA);
   WiFi.setSleep(false);
@@ -362,6 +361,8 @@ void loop() {
     return;
   }
 
+  updateSensorDataFromSensor(sensorData);
+
   clearBootToggleWindowIfNeeded();
 
   static unsigned long lastUpdateMs = 0;
@@ -416,8 +417,22 @@ void loop() {
   }
   lastUpdateMs = millis();
 
-  updateSensorDataRandom(sensorData);
   const String wifiIpText = wifiDisabledDueTimeout ? "-" : WiFi.localIP().toString();
-  drawSensorValues(tft, sensorData.co2, sensorData.o2, sensorData.pm25, sensorData.temp, wifiDisabledDueTimeout, wifiIpText);
-  Serial.println("UALUBUN --- "+ String(beta++ * 100));
+  drawSensorValues(
+    tft,
+    sensorData.co2,
+    sensorData.humidity,
+    sensorData.pm25,
+    sensorData.temp,
+    wifiDisabledDueTimeout,
+    wifiIpText
+  );
+  Serial.printf(
+    "Sensor -> CO2: %d ppm | VOC: %d | RH: %.1f %% | PM2.5: %d ug/m3 | Temp: %.1f C\n",
+    sensorData.co2,
+    sensorData.voc,
+    sensorData.humidity,
+    sensorData.pm25,
+    sensorData.temp
+  );
 }
