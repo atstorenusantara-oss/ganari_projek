@@ -7,8 +7,9 @@
 
 void drawDashboardHeader(TFT_22_ILI9225& tft);
 void showWifiConnectingScreen(TFT_22_ILI9225& tft, const char* ssid);
-void updateWifiConnectingScreen(TFT_22_ILI9225& tft, uint8_t dotCount);
+void updateWifiConnectingScreen(TFT_22_ILI9225& tft, uint8_t dotCount, const char* ssid);
 void showWifiConnectedScreen(TFT_22_ILI9225& tft, const IPAddress& ip);
-void drawSensorValues(TFT_22_ILI9225& tft, int co2, float o2, int pm25, float temp, float VOC);
+void showWifiCheckModeScreen(TFT_22_ILI9225& tft, const String& ssid, const String& password);
+void drawSensorValues(TFT_22_ILI9225& tft, int co2, float o2, int pm25, float temp, bool wifiOff, const String& wifiIp);
 
 #endif

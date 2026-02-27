@@ -13,17 +13,18 @@ void showWifiConnectingScreen(TFT_22_ILI9225& tft, const char* ssid) {
   tft.setFont(Terminal12x16);
   tft.drawText(10, 55, "WiFi: CONNECTING", COLOR_YELLOW);
   tft.setFont(Terminal6x8);
-  tft.drawText(10, 75, "SSID: " + String(ssid), COLOR_LIGHTCYAN);
-  tft.drawText(10, 95, "Status: starting...", COLOR_WHITE);
+  tft.drawText(10, 75, "Connecting to:", COLOR_LIGHTCYAN);
+  tft.drawText(10, 87, String(ssid), COLOR_LIGHTCYAN);
+  tft.drawText(10, 103, "Status: starting...", COLOR_WHITE);
 }
 
-void updateWifiConnectingScreen(TFT_22_ILI9225& tft, uint8_t dotCount) {
+void updateWifiConnectingScreen(TFT_22_ILI9225& tft, uint8_t dotCount, const char* ssid) {
   String dots = "";
   for (uint8_t i = 0; i < dotCount; i++) {
     dots += ".";
   }
-  tft.fillRectangle(10, 95, 200, 12, COLOR_BLACK);
-  tft.drawText(10, 95, "Status: connecting" + dots, COLOR_WHITE);
+  tft.fillRectangle(10, 103, 205, 12, COLOR_BLACK);
+  tft.drawText(10, 103, "Status: connecting to " + String(ssid) + dots, COLOR_WHITE);
 }
 
 void showWifiConnectedScreen(TFT_22_ILI9225& tft, const IPAddress& ip) {
@@ -35,7 +36,18 @@ void showWifiConnectedScreen(TFT_22_ILI9225& tft, const IPAddress& ip) {
   tft.drawText(10, 100, "Dashboard starts in 5s...", COLOR_YELLOW);
 }
 
-void drawSensorValues(TFT_22_ILI9225& tft, int co2, float o2, int pm25, float temp, float VOC) {
+void showWifiCheckModeScreen(TFT_22_ILI9225& tft, const String& ssid, const String& password) {
+  tft.fillRectangle(0, 45, 219, 175, COLOR_BLACK);
+  tft.setFont(Terminal12x16);
+  tft.drawText(10, 50, "CHECK MODE", COLOR_ORANGE);
+  tft.setFont(Terminal6x8);
+  tft.drawText(10, 72, "Power toggled 3x < 3s", COLOR_YELLOW);
+  tft.drawText(10, 92, "SSID: " + ssid, COLOR_LIGHTCYAN);
+  tft.drawText(10, 110, "PASS: " + password, COLOR_LIGHTCYAN);
+  tft.drawText(10, 140, "Power cycle normal to exit", COLOR_WHITE);
+}
+
+void drawSensorValues(TFT_22_ILI9225& tft, int co2, float o2, int pm25, float temp, bool wifiOff, const String& wifiIp) {
   tft.fillRectangle(0, 45, 219, 175, COLOR_BLACK);
   tft.setFont(Terminal12x16);
 
@@ -62,9 +74,8 @@ void drawSensorValues(TFT_22_ILI9225& tft, int co2, float o2, int pm25, float te
   tft.drawText(valueX, y, String(temp, 1) + " C", COLOR_AZUR);
   tft.drawLine(5, y + 20, 210, y + 20, COLOR_DARKGREY);
 
- y += 25;
-  tft.drawText(labelX, y, "VOC", COLOR_AZUR);
-  tft.drawText(valueX, y, String(VOC, 1) + " -", COLOR_AZUR);
-  tft.drawLine(5, y + 20, 210, y + 20, COLOR_DARKGREY);
+  tft.setFont(Terminal6x8);
+  tft.drawText(labelX, 170, wifiOff ? "WiFi: OFF" : "WiFi: ON", wifiOff ? COLOR_RED : COLOR_GREEN);
+  tft.drawText(110, 170, "IP: " + (wifiOff ? String("-") : wifiIp), COLOR_LIGHTCYAN);
 
 }
